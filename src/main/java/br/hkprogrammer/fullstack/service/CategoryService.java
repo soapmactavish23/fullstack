@@ -1,7 +1,6 @@
 package br.hkprogrammer.fullstack.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,8 @@ public class CategoryService {
 		return repository.findAll();
 	}
 	
-	public Optional<Category> findById(Long id) {
-		Optional<Category> obj = repository.findById(id);
+	public Category findById(Long id) {
+		Category obj = repository.findById(id).get();
 		return obj;
 	}
 	
