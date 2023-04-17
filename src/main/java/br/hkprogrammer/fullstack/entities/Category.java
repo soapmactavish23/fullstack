@@ -19,15 +19,10 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String name;
 	
 	@OneToMany(mappedBy = "category")
 	private List<Product> produtos = new ArrayList<>();
-	
-	public Category(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
 	
 }

@@ -24,7 +24,7 @@ public class ProductService {
 		return obj.get();
 	}
 	
-	public Product create(Product obj) {
+	public Product save(Product obj) {
 		return repository.save(obj);
 	}
 	
