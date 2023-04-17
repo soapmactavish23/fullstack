@@ -1,12 +1,12 @@
 package br.hkprogrammer.fullstack.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.hkprogrammer.fullstack.entities.Product;
+import br.hkprogrammer.fullstack.exceptions.ResourceNotFoundException;
 import br.hkprogrammer.fullstack.repositories.ProductRepository;
 
 @Service
@@ -20,8 +20,8 @@ public class ProductService {
 	}
 	
 	public Product findById(Long id) {
-		Optional<Product> obj = repository.findById(id);
-		return obj.get();
+		Product obj = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		return obj;
 	}
 	
 	public Product save(Product obj) {

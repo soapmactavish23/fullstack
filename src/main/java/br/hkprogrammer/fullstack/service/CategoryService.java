@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.hkprogrammer.fullstack.entities.Category;
+import br.hkprogrammer.fullstack.exceptions.ResourceNotFoundException;
 import br.hkprogrammer.fullstack.repositories.CategoryRepository;
 
 @Service
@@ -19,7 +20,7 @@ public class CategoryService {
 	}
 	
 	public Category findById(Long id) {
-		Category obj = repository.findById(id).get();
+		Category obj = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 		return obj;
 	}
 	
