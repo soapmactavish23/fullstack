@@ -28,16 +28,4 @@ public class Product {
 	@JoinColumn(name = "categoryid")
 	private Category category;
 	
-
-	public Product(Long id, String name, Integer amount, Double price, Category category) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.amount = amount;
-		this.price = price;
-		this.category = category;
-	}
-	
-	
-	
 }
