@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,9 @@ public class UsersServices {
 
 	@Autowired
 	private UsersRepository repository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@GetMapping
 	public List<Users> findAll() {
@@ -32,6 +37,8 @@ public class UsersServices {
 	
 	@PostMapping
 	public Users create(@RequestBody Users users) {
+		String newPass = encoder.encode(users.getPassword());
+		users.setPassword(newPass);
 		return repository.save(users);
 	}
 	
