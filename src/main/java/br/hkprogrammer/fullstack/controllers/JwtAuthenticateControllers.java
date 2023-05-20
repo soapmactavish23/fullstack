@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,9 @@ public class JwtAuthenticateControllers {
 	private List<Users> usuarios = new ArrayList<>();
 
 	@Autowired
+	private BCryptPasswordEncoder encoder;
+
+	@Autowired
 	private UsersRepository repository;
 
 	@CrossOrigin
@@ -30,12 +34,12 @@ public class JwtAuthenticateControllers {
 		String password = authenticateRequest.getPassword();
 		for (Users usuario : usuarios) {
 
-			if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password)) {
+			if (usuario.getUsername().equals(username) && encoder.matches(password, usuario.getPassword())) {
 				return usuario.getUsername();
 			}
 		}
 
-		return null;
+		return "Error";
 	}
 
 }
