@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.hkprogrammer.fullstack.entities.Users;
 import br.hkprogrammer.fullstack.repositories.UsersRepository;
+import br.hkprogrammer.fullstack.security.JwtTokenUtil;
 import br.hkprogrammer.fullstack.security.JwtUserDetailsService;
 
 @CrossOrigin
@@ -20,6 +21,8 @@ import br.hkprogrammer.fullstack.security.JwtUserDetailsService;
 public class JwtAuthenticateControllers {
 
 	private List<Users> usuarios = new ArrayList<>();
+	
+	private String token;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -29,6 +32,9 @@ public class JwtAuthenticateControllers {
 	
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
+	
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
 
 	@CrossOrigin
 	@PostMapping("/login")
@@ -43,9 +49,9 @@ public class JwtAuthenticateControllers {
 				
 				final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
 				
-				System.out.println(userDetails);
+				this.token = jwtTokenUtil.generateToken(userDetails);
 				
-				return usuario.getUsername();
+				return this.token;
 			}
 		}
 

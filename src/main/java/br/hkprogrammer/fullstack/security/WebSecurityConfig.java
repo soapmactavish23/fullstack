@@ -30,5 +30,10 @@ public class WebSecurityConfig {
 	public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
+	
+	/*@Bean 
+	public JwtTokenUtil jwtTokenUtil() {
+		return new JwtTokenUtil();
+	}*/
 
 }
