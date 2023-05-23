@@ -29,7 +29,9 @@ public class CategoryController {
 	
 	@GetMapping
 	public List<Category> findAll() {
+		System.out.println("aqui");
 		List<Category> list = service.findAll();
+		
 		return list;
 	}
 	
